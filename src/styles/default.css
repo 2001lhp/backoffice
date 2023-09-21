@@ -6,9 +6,16 @@ body {
   padding: 0;
 }
 
+html,
+body,
+#app {
+  height: 100vh;
+}
+
 .flex {
   display: flex;
 }
-*{
+
+* {
   box-sizing: border-box;
 }

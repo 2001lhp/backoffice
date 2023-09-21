@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 <template>
-  <div class="home">1111</div>
+  <div class="home"></div>
 </template>
 <style lang="scss" scoped></style>

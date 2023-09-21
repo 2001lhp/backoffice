@@ -1,5 +1,6 @@
 import type { DATA } from '@/types/request'
 import axios, { type AxiosRequestConfig } from 'axios'
+import utils from './utils'
 
 const http = axios.create({
   baseURL: '',
@@ -26,10 +27,25 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   (response) => {
     // Do something before response is sent
-    return response.data
+    if (response.status === 200) {
+      const data = response.data
+      // 全局异常处理
+      if (data.code !== 888) {
+        return utils.showError(data.message || '发生错误')
+      }
+      return data
+    }
+
+    if (response.status === 401) {
+      // TODO token过期处理
+      return
+    }
+
+    utils.showError('请求失败')
   },
   (error) => {
     // Do something with response error
+    utils.showError(error.response.statusText || '请求失败')
     return Promise.reject(error)
   }
 )

@@ -5,7 +5,14 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      // redirect: '/home',
+      component: () => import('@/layout/index.vue'),
+      children: [
+        {
+          path: '/home',
+          component: () => import('@/views/Home/index.vue')
+        }
+      ]
     },
     {
       path: '/login',
@@ -14,10 +21,6 @@ const router = createRouter({
     {
       path: '/resetpwd',
       component: () => import('@/views/Resetpwd/index.vue')
-    },
-    {
-      path: '/home',
-      component: () => import('@/views/Home/index.vue')
     }
   ]
 })

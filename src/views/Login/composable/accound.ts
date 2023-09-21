@@ -39,6 +39,7 @@ export const useSaveUser = (accoundForm: AccoundFormType, router: Router) => {
     await formEl.validate(async (valid, fields) => {
       if (valid) {
         accoundLocalUser()
+        utils.openLoading()
         const res = await accountLogin({
           username: accoundForm.username,
           password: accoundForm.password,
@@ -52,6 +53,7 @@ export const useSaveUser = (accoundForm: AccoundFormType, router: Router) => {
         } else {
           utils.showError(res.message)
         }
+        utils.closeLoading()
       } else {
         console.log('error submit!', fields)
         for (const key in fields) {
