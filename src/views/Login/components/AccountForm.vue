@@ -3,6 +3,9 @@ import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useSaveUser } from '../composable/accound'
 import type { AccoundFormType } from '@/types/login'
+import { useGetImgCode } from '../composable'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const formSize = ref('default')
 const accoundFormRef = ref<FormInstance>()
@@ -13,26 +16,15 @@ const accoundForm = reactive<AccoundFormType>({
   saveUsername: false,
   savePass: false
 })
-const { accoundlogin, getAccoundDate } = useSaveUser(accoundForm)
+const { getAccoundDate, submitForm } = useSaveUser(accoundForm, router)
+const { imgCodeSrc, getImgCode } = useGetImgCode()
+getAccoundDate()
 
 const rules = reactive<FormRules<AccoundFormType>>({
-  username: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
-  password: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
-  imgcode: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }]
+  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  imgcode: [{ required: true, message: '请输入图片验证码', trigger: 'blur' }]
 })
-
-const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  await formEl.validate((valid, fields) => {
-    if (valid) {
-      console.log('submit!')
-      accoundlogin()
-    } else {
-      console.log('error submit!', fields)
-    }
-  })
-}
-getAccoundDate()
 </script>
 <template>
   <div class="accound">
@@ -45,15 +37,31 @@ getAccoundDate()
       status-icon
     >
       <el-form-item prop="username">
-        <el-input size="large" v-model="accoundForm.username" placeholder="请输入用户名" />
+        <el-input
+          size="large"
+          prefix-icon="UserFilled"
+          v-model="accoundForm.username"
+          placeholder="请输入用户名"
+        />
       </el-form-item>
       <el-form-item prop="password">
-        <el-input size="large" v-model="accoundForm.password" placeholder="请输入密码" />
+        <el-input
+          size="large"
+          prefix-icon="Lock"
+          type="password"
+          v-model="accoundForm.password"
+          placeholder="请输入密码"
+        />
       </el-form-item>
       <el-form-item prop="imgcode">
         <div class="form-item">
-          <el-input size="large" v-model="accoundForm.imgcode" placeholder="请输入图片验证码" />
-          <img src="@/assets/code.png" alt="" />
+          <el-input
+            size="large"
+            prefix-icon="PictureRounded"
+            v-model="accoundForm.imgcode"
+            placeholder="请输入图片验证码"
+          />
+          <img :src="imgCodeSrc" alt="" @click="getImgCode" />
         </div>
       </el-form-item>
       <el-form-item>

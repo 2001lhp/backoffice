@@ -3,6 +3,7 @@ import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useGetPhoneCode, useSaveUser } from '../composable/phone'
 import type { PhoneFormType } from '@/types/login'
+import { useGetImgCode } from '../composable'
 
 const formSize = ref('default')
 const phoneFormRef = ref<FormInstance>()
@@ -14,6 +15,7 @@ const phoneForm = reactive<PhoneFormType>({
 })
 const { disabled, time, getcode } = useGetPhoneCode(phoneForm)
 const { phonelogin, getPhoneDate } = useSaveUser(phoneForm)
+const { imgCodeSrc, getImgCode } = useGetImgCode()
 
 const rules = reactive<FormRules<PhoneFormType>>({
   phone: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
@@ -45,11 +47,21 @@ getPhoneDate()
       status-icon
     >
       <el-form-item prop="phone">
-        <el-input size="large" v-model="phoneForm.phone" placeholder="请输入用户名" />
+        <el-input
+          size="large"
+          prefix-icon="UserFilled"
+          v-model="phoneForm.phone"
+          placeholder="请输入用户名"
+        />
       </el-form-item>
       <el-form-item prop="smscode">
         <div class="form-item">
-          <el-input size="large" v-model="phoneForm.smscode" placeholder="请输入短信验证码" />
+          <el-input
+            size="large"
+            prefix-icon="Picture"
+            v-model="phoneForm.smscode"
+            placeholder="请输入短信验证码"
+          />
           <el-button type="primary" size="large" :disabled="disabled" @click="getcode">{{
             time <= 0 ? '获取验证码' : `${time}秒后重新获取`
           }}</el-button>
@@ -57,8 +69,13 @@ getPhoneDate()
       </el-form-item>
       <el-form-item prop="imgcode">
         <div class="form-item">
-          <el-input size="large" v-model="phoneForm.imgcode" placeholder="请输入图片验证码" />
-          <img src="@/assets/code.png" alt="" />
+          <el-input
+            size="large"
+            prefix-icon="PictureRounded"
+            v-model="phoneForm.imgcode"
+            placeholder="请输入图片验证码"
+          />
+          <img :src="imgCodeSrc" alt="" @click="getImgCode" />
         </div>
       </el-form-item>
       <el-form-item>

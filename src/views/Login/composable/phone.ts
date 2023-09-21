@@ -37,6 +37,7 @@ export const useSaveUser = (phoneForm: PhoneFormType) => {
       store.phone = ''
     }
   }
+
   const getPhoneDate = () => {
     if (store.savePhone) {
       phoneForm.phone = store.phone
