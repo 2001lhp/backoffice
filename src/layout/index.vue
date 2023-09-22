@@ -24,6 +24,7 @@ const store = useMenuStore()
   height: 100%;
 
   .el-aside {
+    background: var(--junjun-topbar-bg);
     transition: width 0.4s linear;
   }
 

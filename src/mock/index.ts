@@ -4,6 +4,7 @@ const Random = Mock.Random
 // 导入数据
 import user from './userdata'
 
+// 登录
 Mock.mock('/api/login/username', (options) => {
   if (!options || !options.body) {
     return {

@@ -30,6 +30,7 @@ export const useSaveUser = (accoundForm: AccoundFormType, router: Router) => {
     }
     if (store.savePass) {
       accoundForm.password = store.password
+      accoundForm.savePass = store.savePass
     }
   }
 
