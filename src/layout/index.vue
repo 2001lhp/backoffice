@@ -39,5 +39,10 @@ const store = useMenuStore()
     background: var(--junjun-topbar-bg);
     color: #ccc;
   }
+
+  .el-main {
+    background: var(--el-bg-color-page);
+    min-width: 700px;
+  }
 }
 </style>
