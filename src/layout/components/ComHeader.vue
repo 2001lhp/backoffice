@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import TagsView from './TagsView.vue'
+import ToolBar from './ToolBar.vue'
 import { useMenuStore } from '@/stores/menu'
 const store = useMenuStore()
 </script>
@@ -11,5 +13,7 @@ const store = useMenuStore()
       <Expand />
     </el-icon>
   </div>
+  <TagsView />
+  <ToolBar />
 </template>
 <style lang="scss" scoped></style>

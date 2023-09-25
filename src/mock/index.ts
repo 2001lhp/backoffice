@@ -3,6 +3,7 @@ const Random = Mock.Random
 
 // 导入数据
 import user from './userdata'
+import './menuData'
 
 // 登录
 Mock.mock('/api/login/username', (options) => {

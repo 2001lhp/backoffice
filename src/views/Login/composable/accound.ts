@@ -46,7 +46,7 @@ export const useSaveUser = (accoundForm: AccoundFormType, router: Router) => {
           password: accoundForm.password,
           imgcode: accoundForm.imgcode
         })
-        console.log(res)
+        // console.log(res)
         if (res.code == 888) {
           store.userinfo = res.data
           store.token = res.token
@@ -56,7 +56,7 @@ export const useSaveUser = (accoundForm: AccoundFormType, router: Router) => {
         }
         utils.closeLoading()
       } else {
-        console.log('error submit!', fields)
+        // console.log('error submit!', fields)
         for (const key in fields) {
           utils.showError(fields[key][0].message!)
         }

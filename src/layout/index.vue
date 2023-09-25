@@ -28,9 +28,16 @@ const store = useMenuStore()
     transition: width 0.4s linear;
   }
 
+  .el-aside::-webkit-scrollbar {
+    display: none;
+  }
+
   .el-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    background: var(--junjun-topbar-bg);
+    color: #ccc;
   }
 }
 </style>
